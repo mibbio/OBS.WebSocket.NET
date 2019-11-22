@@ -153,3 +153,4 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+/.vs/obs-websocket-dotnet/v16/Server/sqlite3
