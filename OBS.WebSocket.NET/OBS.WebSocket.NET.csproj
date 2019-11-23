@@ -1,119 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C8668815-F21E-49C0-8F1A-58BC698153AF}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OBS.WebSocket.NET</RootNamespace>
-    <AssemblyName>OBS.WebSocket.NET</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>4.7.2</Version>
+    <Authors>Alexander Schmid</Authors>
+    <Description>.NET Standard object oriented C# .NET library to communicate with an OBS-WebSocket Server</Description>
+    <PackageLicenseFile></PackageLicenseFile>
+    <PackageReleaseNotes>Updated API to .NET Standard library &amp; added support OBS-WebSocket 4.7.0 protocol: https://github.com/Palakis/obs-websocket/releases/tag/4.7.0</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/DurtyFree/OBS.WebSocket.NET</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/DurtyFree/OBS.WebSocket.NET</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/DurtyFree/OBS.WebSocket.NET/master/OBS.WebSocket.NET/icon.png</PackageIconUrl>
+    <PackageTags>obs studio websocket api streaming twitch library api server obs-websocket durtyfree core standard</PackageTags>
+    <Copyright>Copyright 2019 (c) Alexander Schmid</Copyright>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug\OBS.WebSocket.NET.xml</DocumentationFile>
-    <RegisterForComInterop>false</RegisterForComInterop>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <RegisterForComInterop>false</RegisterForComInterop>
-    <DocumentationFile>bin\Release\OBS.WebSocket.NET.xml</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SuperSocket.ClientEngine, Version=0.10.0.0, Culture=neutral, PublicKeyToken=ee9af13f57f00acc, processorArchitecture=MSIL">
-      <HintPath>..\packages\SuperSocket.ClientEngine.Core.0.10.0\lib\net40-client\SuperSocket.ClientEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WebSocket4Net, Version=0.15.2.11, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebSocket4Net.0.15.2\lib\net40\WebSocket4Net.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="WebSocket4Net" Version="0.15.2" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ObsWebSocketApi.cs" />
-    <Compile Include="OutputStatus.cs" />
-    <Compile Include="Events.cs" />
-    <Compile Include="ObsWebSocket.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\AudioMixerChannel.cs" />
-    <Compile Include="Types\AudioMixersChangedInfo.cs" />
-    <Compile Include="Types\BrowserSourceProperties.cs" />
-    <Compile Include="Types\CommonRTMPStreamingService.cs" />
-    <Compile Include="Types\CustomRTMPStreamingService.cs" />
-    <Compile Include="Types\FilterReorderItem.cs" />
-    <Compile Include="Types\GetSceneListInfo.cs" />
-    <Compile Include="Types\GetTransitionListInfo.cs" />
-    <Compile Include="Types\BroadcastCustomMessage.cs" />
-    <Compile Include="Types\Heartbeat.cs" />
-    <Compile Include="Types\FilterMovementType.cs" />
-    <Compile Include="Types\OBSScene.cs" />
-    <Compile Include="Types\OBSStats.cs" />
-    <Compile Include="Types\FilterSettings.cs" />
-    <Compile Include="Types\OBSAuthInfo.cs" />
-    <Compile Include="Types\OBSVersion.cs" />
-    <Compile Include="Types\SourceFilterInfo.cs" />
-    <Compile Include="Types\OBSVideoInfo.cs" />
-    <Compile Include="Types\OutputState.cs" />
-    <Compile Include="Types\SceneItem.cs" />
-    <Compile Include="Types\SceneItemBoundsInfo.cs" />
-    <Compile Include="Types\SceneItemBoundsType.cs" />
-    <Compile Include="Types\SceneItemCropInfo.cs" />
-    <Compile Include="Types\SceneItemPointInfo.cs" />
-    <Compile Include="Types\SceneItemPositionInfo.cs" />
-    <Compile Include="Types\SceneItemStub.cs" />
-    <Compile Include="Types\SceneItemProperties.cs" />
-    <Compile Include="Types\SceneItemTransformInfo.cs" />
-    <Compile Include="Types\OutputInfo.cs" />
-    <Compile Include="Types\SourceScreenshotResponse.cs" />
-    <Compile Include="Types\SourceTypeCapabilities.cs" />
-    <Compile Include="Types\SourceInfo.cs" />
-    <Compile Include="Types\SourceSettings.cs" />
-    <Compile Include="Types\SourceType.cs" />
-    <Compile Include="Types\StreamingService.cs" />
-    <Compile Include="Types\StreamingServiceSettings.cs" />
-    <Compile Include="Types\StreamStatus.cs" />
-    <Compile Include="Types\TextGDIPlusFont.cs" />
-    <Compile Include="Types\TextGDIPlusProperties.cs" />
-    <Compile Include="Types\TransitionSettings.cs" />
-    <Compile Include="Types\VolumeInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LICENSE.md" />
-    <None Include="OBS.WebSocket.NET.nuspec" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
