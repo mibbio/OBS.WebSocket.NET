@@ -19,6 +19,85 @@ namespace OBS.WebSocket.NET
         }
 
         /// <summary>
+        /// List existing outputs
+        /// </summary>
+        public List<OutputInfo> ListOutputs()
+        {
+            JObject response = _webSocket.SendRequest("ListOutputs");
+            return JsonConvert.DeserializeObject<List<OutputInfo>>(response["outputs"].ToString());
+        }
+
+        /// <summary>
+        /// Get information about a single output
+        /// </summary>
+        /// <param name="outputName">Output name</param>
+        public OutputInfo GetOutputInfo(string outputName)
+        {
+            var requestFields = new JObject();
+            requestFields.Add("outputName", outputName);
+
+            JObject response = _webSocket.SendRequest("GetOutputInfo", requestFields);
+            return JsonConvert.DeserializeObject<OutputInfo>(response["outputInfo"].ToString());
+        }
+
+        /// <summary>
+        /// Stop an output
+        /// </summary>
+        /// <param name="outputName">Output name</param>
+        public void StartOutput(string outputName)
+        {
+            var requestFields = new JObject();
+            requestFields.Add("outputName", outputName);
+
+            _webSocket.SendRequest("StartOutput", requestFields);
+        }
+
+        /// <summary>
+        /// Stop an output
+        /// </summary>
+        /// <param name="outputName">Output name</param>
+        /// <param name="force">Force stop</param>
+        public void StopOutput(string outputName, bool force = false)
+        {
+            var requestFields = new JObject();
+            requestFields.Add("outputName", outputName);
+            requestFields.Add("force", force);
+
+            _webSocket.SendRequest("StopOutput", requestFields);
+        }
+
+        /// <summary>
+        /// Get OBS source filter info
+        /// </summary>
+        /// <param name="sourceName">Source name</param>
+        /// <param name="filterName">Source filter name</param>
+        public SourceFilterInfo GetSourceFilterInfo(string sourceName, string filterName)
+        {
+            var requestFields = new JObject();
+            requestFields.Add("sourceName", sourceName);
+            requestFields.Add("filterName", filterName);
+
+            var response = _webSocket.SendRequest("GetSourceFilterInfo", requestFields);
+            return JsonConvert.DeserializeObject<SourceFilterInfo>(response.ToString());
+        }
+
+        /// <summary>
+        /// Set OBS source filter visibility
+        /// </summary>
+        /// <param name="sourceName">Source name</param>
+        /// <param name="filterName">Source filter name</param>
+        /// <param name="filterEnabled">New filter state</param>
+        public void SetSourceFilterInfo(string sourceName, string filterName, bool filterEnabled)
+        {
+            var requestFields = new JObject();
+            requestFields.Add("sourceName", sourceName);
+            requestFields.Add("filterName", filterName);
+            requestFields.Add("filterEnabled", filterEnabled);
+
+            _webSocket.SendRequest("SetSourceFilterVisibility", requestFields);
+        }
+
+        /// <summary>
         /// Get basic OBS video information
         /// </summary>
         public OBSVideoInfo GetVideoInfo()
@@ -41,38 +120,16 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("sourceName", sourceName);
             if (embedPictureFormat != null)
-            requestFields.Add("embedPictureFormat", embedPictureFormat);
+                requestFields.Add("embedPictureFormat", embedPictureFormat);
             if (saveToFilePath != null)
                 requestFields.Add("saveToFilePath", saveToFilePath);
             if (width > -1)
-            requestFields.Add("height", width);
+                requestFields.Add("height", width);
             if (height > -1)
                 requestFields.Add("height", height);
 
             var response = _webSocket.SendRequest("TakeSourceScreenshot", requestFields);
             return JsonConvert.DeserializeObject<SourceScreenshotResponse>(response.ToString());
-        }
-
-        /// <summary>
-        /// At least embedPictureFormat or saveToFilePath must be specified.
-        /// Clients can specify width and height parameters to receive scaled pictures. Aspect ratio is preserved if only one of these two parameters is specified.
-        /// </summary>
-        /// <param name="sourceName"></param>
-        /// <param name="embedPictureFormat">Format of the Data URI encoded picture. Can be "png", "jpg", "jpeg" or "bmp" (or any other value supported by Qt's Image module)</param>
-        /// <param name="saveToFilePath">Full file path (file extension included) where the captured image is to be saved. Can be in a format different from pictureFormat. Can be a relative path.</param>
-        public SourceScreenshotResponse TakeSourceScreenshot(string sourceName, string embedPictureFormat = null, string saveToFilePath = null)
-        {
-            return TakeSourceScreenshot(sourceName, embedPictureFormat, saveToFilePath);
-        }
-
-        /// <summary>
-        /// At least embedPictureFormat or saveToFilePath must be specified.
-        /// Clients can specify width and height parameters to receive scaled pictures. Aspect ratio is preserved if only one of these two parameters is specified.
-        /// </summary>
-        /// <param name="sourceName"></param>
-        public SourceScreenshotResponse TakeSourceScreenshot(string sourceName)
-        {
-            return TakeSourceScreenshot(sourceName);
         }
 
         /// <summary>
@@ -644,6 +701,22 @@ namespace OBS.WebSocket.NET
         public void StopRecording()
         {
             _webSocket.SendRequest("StopRecording");
+        }
+
+        /// <summary>
+        /// Pause recording. Will trigger an error if recording is already paused.
+        /// </summary>
+        public void PauseRecording()
+        {
+            _webSocket.SendRequest("PauseRecording");
+        }
+
+        /// <summary>
+        /// Resume recording. Will trigger an error if recording is not paused.
+        /// </summary>
+        public void ResumeRecording()
+        {
+            _webSocket.SendRequest("ResumeRecording");
         }
 
         /// <summary>

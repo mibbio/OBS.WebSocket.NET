@@ -75,6 +75,16 @@ namespace OBS.WebSocket.NET
         public event EventHandler TransitionBegin;
 
         /// <summary>
+        /// Triggered when recording is paused
+        /// </summary>
+        public event EventHandler RecordingPaused;
+
+        /// <summary>
+        /// Triggered when recording is resumed
+        /// </summary>
+        public event EventHandler RecordingResumed;
+
+        /// <summary>
         /// Triggered when switching to another profile
         /// </summary>
         public event EventHandler ProfileChanged;
@@ -135,6 +145,11 @@ namespace OBS.WebSocket.NET
         public event HeartBeatCallback Heartbeat;
 
         /// <summary>
+        /// A custom broadcast message was received
+        /// </summary>
+        public event BroadcastCustomMessageCallback BroadcastCustomMessageReceived;
+
+        /// <summary>
         /// A scene item is deselected
         /// </summary>
         public event SceneItemDeselectedCallback SceneItemDeselected;
@@ -173,6 +188,11 @@ namespace OBS.WebSocket.NET
         /// A filter was added to a source
         /// </summary>
         public event SourceFilterAddedCallback SourceFilterAdded;
+
+        /// <summary>
+        /// A filters visiblity state was changed
+        /// </summary>
+        public event SourceFilterVisibilityChangedCallback SourceFilterVisibilityChanged;
 
         /// <summary>
         /// A filter was removed from a source
@@ -519,6 +539,14 @@ namespace OBS.WebSocket.NET
                     }
                     break;
 
+                case "RecordingPaused":
+                    RecordingPaused?.Invoke(this, EventArgs.Empty);
+                    break;
+
+                case "RecordingResumed":
+                    RecordingResumed?.Invoke(this, EventArgs.Empty);
+                    break;
+
                 case "PreviewSceneChanged":
                     PreviewSceneChanged?.Invoke(this, (string)body["scene-name"]);
                     break;
@@ -549,6 +577,9 @@ namespace OBS.WebSocket.NET
 
                 case "Heartbeat":
                     Heartbeat?.Invoke(this, new Heartbeat(body));
+                    break;
+                case "BroadcastCustomMessage":
+                    BroadcastCustomMessageReceived?.Invoke(this, new BroadcastCustomMessage(body));
                     break;
                 case "SceneItemDeselected":
                     SceneItemDeselected?.Invoke(this, (string)body["scene-name"], (string)body["item-name"], (string)body["item-id"]);
@@ -585,6 +616,9 @@ namespace OBS.WebSocket.NET
                     break;
                 case "SourceFilterRemoved":
                     SourceFilterRemoved?.Invoke(this, (string)body["sourceName"], (string)body["filterName"]);
+                    break;
+                case "SourceFilterVisibilityChanged":
+                    SourceFilterVisibilityChanged?.Invoke(this, (string)body["sourceName"], (string)body["filterName"], (bool)body["filterEnabled"]);
                     break;
                 case "SourceFiltersReordered":
                     List<FilterReorderItem> filters = new List<FilterReorderItem>();

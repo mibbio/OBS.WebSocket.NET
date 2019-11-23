@@ -45,7 +45,7 @@ namespace OBS.WebSocket.NET.Types
         /// Total time (in seconds) since the stream started.
         /// </summary>
         [JsonProperty(PropertyName = "total-stream-time")]
-        public int totalStreamTime { set; get; }
+        public int TotalStreamTime { set; get; }
 
         /// <summary>
         /// Total bytes sent since the stream started.
@@ -64,6 +64,12 @@ namespace OBS.WebSocket.NET.Types
         /// </summary>
         [JsonProperty(PropertyName = "recording")]
         public bool Recording { set; get; }
+
+        /// <summary>
+        /// Current paused state.
+        /// </summary>
+        [JsonProperty(PropertyName = "recording-paused")]
+        public bool Paused { set; get; }
 
         /// <summary>
         /// Total time (in seconds) since recording started.

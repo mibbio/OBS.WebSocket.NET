@@ -21,6 +21,12 @@ namespace OBS.WebSocket.NET.Types
         public bool Recording { internal set; get; }
 
         /// <summary>
+        /// True if recording is paused, false otherwise
+        /// </summary>
+        [JsonProperty(PropertyName = "recording-paused")]
+        public bool Paused { internal set; get; }
+
+        /// <summary>
         /// Stream bitrate in bytes per second
         /// </summary>
         [JsonProperty(PropertyName = "bytes-per-sec")]

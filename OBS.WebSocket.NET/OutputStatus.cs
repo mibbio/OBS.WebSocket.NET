@@ -22,6 +22,12 @@ namespace OBS.WebSocket.NET
         public readonly bool IsRecording;
 
         /// <summary>
+        /// True if recording is paused, false otherwise
+        /// </summary>
+        [JsonProperty(PropertyName = "recording-paused")]
+        public readonly bool IsPaused;
+
+        /// <summary>
         /// Builds the object from the JSON response body
         /// </summary>
         /// <param name="data">JSON response body as a <see cref="JObject"/></param>

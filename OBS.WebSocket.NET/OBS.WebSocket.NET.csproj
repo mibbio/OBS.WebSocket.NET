@@ -69,6 +69,7 @@
     <Compile Include="Types\FilterReorderItem.cs" />
     <Compile Include="Types\GetSceneListInfo.cs" />
     <Compile Include="Types\GetTransitionListInfo.cs" />
+    <Compile Include="Types\BroadcastCustomMessage.cs" />
     <Compile Include="Types\Heartbeat.cs" />
     <Compile Include="Types\FilterMovementType.cs" />
     <Compile Include="Types\OBSScene.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Types\FilterSettings.cs" />
     <Compile Include="Types\OBSAuthInfo.cs" />
     <Compile Include="Types\OBSVersion.cs" />
+    <Compile Include="Types\SourceFilterInfo.cs" />
     <Compile Include="Types\OBSVideoInfo.cs" />
     <Compile Include="Types\OutputState.cs" />
     <Compile Include="Types\SceneItem.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Types\SceneItemStub.cs" />
     <Compile Include="Types\SceneItemProperties.cs" />
     <Compile Include="Types\SceneItemTransformInfo.cs" />
+    <Compile Include="Types\OutputInfo.cs" />
     <Compile Include="Types\SourceScreenshotResponse.cs" />
     <Compile Include="Types\SourceTypeCapabilities.cs" />
     <Compile Include="Types\SourceInfo.cs" />

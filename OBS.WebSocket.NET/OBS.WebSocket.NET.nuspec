@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
 		<id>OBS.WebSocket.NET</id>
-		<version>4.6.1</version>
+		<version>4.7.0</version>
 
 		<authors>Alexander Schmid</authors>
 		<owners>DurtyFree</owners>
@@ -11,7 +11,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 
 		<description>Object oriented C# .NET library to communicate with an OBS-WebSocket Server</description>
-		<releaseNotes>Bumped API to support OBS-WebSocket 4.6.1 protocol: https://github.com/Palakis/obs-websocket/releases/tag/4.6.1 </releaseNotes>
+		<releaseNotes>Updated API to support OBS-WebSocket 4.7.0 protocol: https://github.com/Palakis/obs-websocket/releases/tag/4.7.0 </releaseNotes>
 
 		<copyright>Copyright 2019 (c) Alexander Schmid</copyright>
 		<tags>obs studio websocket api streaming twitch library api server obs-websocket durtyfree</tags>

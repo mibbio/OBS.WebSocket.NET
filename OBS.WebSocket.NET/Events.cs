@@ -72,6 +72,13 @@ namespace OBS.WebSocket.NET
     public delegate void HeartBeatCallback(ObsWebSocket sender, Heartbeat heatbeat);
 
     /// <summary>
+    /// Called by <see cref="ObsWebSocket.BroadcastCustomMessage"/>
+    /// </summary>
+    /// <param name="sender"><see cref="ObsWebSocket"/> instance</param>
+    /// <param name="broadcastCustomMessage">BroadcastCustomMessage data</param>
+    public delegate void BroadcastCustomMessageCallback(ObsWebSocket sender, BroadcastCustomMessage broadcastCustomMessage);
+
+    /// <summary>
     /// Callback by <see cref="ObsWebSocket.SceneItemDeselected"/>
     /// </summary>
     /// <param name="sender"><see cref="ObsWebSocket"/> instance</param>
@@ -154,6 +161,15 @@ namespace OBS.WebSocket.NET
     /// <param name="sourceName">Name of source</param>
     /// <param name="volume">Current volume level of source</param>
     public delegate void SourceVolumeChangedCallback(ObsWebSocket sender, string sourceName, float volume);
+
+    /// <summary>
+    /// Callback by <see cref="ObsWebSocket.SourceFilterVisibilityChanged"/>
+    /// </summary>
+    /// <param name="sender"><see cref="ObsWebSocket"/> instance</param>
+    /// <param name="sourceName">Name of source</param>
+    /// <param name="filterName">Name of filter</param>
+    /// <param name="filterEnabled">New filter state</param>
+    public delegate void SourceFilterVisibilityChangedCallback(ObsWebSocket sender, string sourceName, string filterName, bool filterEnabled);
 
     /// <summary>
     /// Callback by <see cref="ObsWebSocket.SourceFilterRemoved"/>
