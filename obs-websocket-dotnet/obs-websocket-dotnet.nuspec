@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
-		<id>obs-websocket-dotnet</id>
-		<version>4.6.0</version>
+		<id>obs-websocket-net</id>
+		<version>4.6.1</version>
 
 		<authors>Stéphane Lepin</authors>
 		<owners>Palakis</owners>
 
-		<licenseUrl>https://github.com/Palakis/obs-websocket-dotnet/blob/master/LICENSE.md</licenseUrl>
-		<projectUrl>https://github.com/Palakis/obs-websocket-dotnet</projectUrl>
+		<projectUrl>https://github.com/DurtyFree/obs-websocket-dotnet</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 
 		<description>C#/VB .NET library to communicate with an obs-websocket server</description>
-		<releaseNotes>Better error handling + test coverage</releaseNotes>
+		<releaseNotes>Bumped API to support OBS-WebSocket 4.6.1 protocol: https://github.com/Palakis/obs-websocket/releases/tag/4.6.1 </releaseNotes>
 
 		<copyright>Copyright 2017 (c) Stéphane Lepin</copyright>
 		<tags>obs studio websocket api</tags>
 
 		<dependencies>
 			<dependency id="Newtonsoft.Json" version="10.0.3" />
-			<dependency id="WebSocketSharp" version="1.0.3-rc11" />
+      <dependency id="SuperSocket.ClientEngine.Core" version="0.10.0" />
+      <dependency id="WebSocket4Net" version="0.15.2" />
 		</dependencies>
 	</metadata>
 
