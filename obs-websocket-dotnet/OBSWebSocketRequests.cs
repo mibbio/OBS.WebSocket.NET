@@ -33,7 +33,7 @@ namespace OBSWebsocketDotNet
     /// <summary>
     /// Instance of a connection with an obs-websocket server
     /// </summary>
-    public partial class OBSWebsocket
+    public partial class OBSWebSocket
     {
         /// <summary>
         /// Get basic OBS video information

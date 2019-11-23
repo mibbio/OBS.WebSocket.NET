@@ -7,7 +7,7 @@ using System.Text;
 namespace OBSWebsocketDotNet.Types
 {
     /// <summary>
-    /// Respone from <see cref="OBSWebsocket.TakeSourceScreenshot(string)"/>
+    /// Respone from <see cref="OBSWebSocket.TakeSourceScreenshot(string)"/>
     /// </summary>
     public class SourceScreenshotResponse
     {

@@ -25,12 +25,12 @@ namespace TestClient
 {
     public partial class MainWindow : Form
     {
-        protected OBSWebsocket _obs;
+        protected OBSWebSocket _obs;
 
         public MainWindow()
         {
             InitializeComponent();
-            _obs = new OBSWebsocket();
+            _obs = new OBSWebSocket();
 
             _obs.Connected += onConnect;
             _obs.Disconnected += onDisconnect;
@@ -98,7 +98,7 @@ namespace TestClient
             }));
         }
 
-        private void onSceneChange(OBSWebsocket sender, string newSceneName)
+        private void onSceneChange(OBSWebSocket sender, string newSceneName)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -122,7 +122,7 @@ namespace TestClient
             });
         }
 
-        private void onTransitionChange(OBSWebsocket sender, string newTransitionName)
+        private void onTransitionChange(OBSWebSocket sender, string newTransitionName)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -130,7 +130,7 @@ namespace TestClient
             });
         }
 
-        private void onTransitionDurationChange(OBSWebsocket sender, int newDuration)
+        private void onTransitionDurationChange(OBSWebSocket sender, int newDuration)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -138,7 +138,7 @@ namespace TestClient
             });
         }
 
-        private void onStreamingStateChange(OBSWebsocket sender, OutputState newState)
+        private void onStreamingStateChange(OBSWebSocket sender, OutputState newState)
         {
             string state = "";
             switch(newState)
@@ -178,7 +178,7 @@ namespace TestClient
             });
         }
 
-        private void onRecordingStateChange(OBSWebsocket sender, OutputState newState)
+        private void onRecordingStateChange(OBSWebSocket sender, OutputState newState)
         {
             string state = "";
             switch (newState)
@@ -210,7 +210,7 @@ namespace TestClient
             });
         }
 
-        private void onStreamData(OBSWebsocket sender, StreamStatus data)
+        private void onStreamData(OBSWebSocket sender, StreamStatus data)
         {
             BeginInvoke((MethodInvoker)delegate
             {

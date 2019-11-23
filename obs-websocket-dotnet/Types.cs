@@ -31,180 +31,180 @@ namespace OBSWebsocketDotNet
 {
 
     /// <summary>
-    /// Called by <see cref="OBSWebsocket.SceneChanged"/>
+    /// Called by <see cref="OBSWebSocket.SceneChanged"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="newSceneName">Name of the new current scene</param>
-    public delegate void SceneChangeCallback(OBSWebsocket sender, string newSceneName);
+    public delegate void SceneChangeCallback(OBSWebSocket sender, string newSceneName);
 
     /// <summary>
-    /// Called by <see cref="OBSWebsocket.SourceOrderChanged"/>
+    /// Called by <see cref="OBSWebSocket.SourceOrderChanged"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sceneName">Name of the scene where items where reordered</param>
-    public delegate void SourceOrderChangeCallback(OBSWebsocket sender, string sceneName);
+    public delegate void SourceOrderChangeCallback(OBSWebSocket sender, string sceneName);
 
     /// <summary>
-    /// Called by <see cref="OBSWebsocket.SceneItemVisibilityChanged"/>, <see cref="OBSWebsocket.SceneItemAdded"/>
-    /// or <see cref="OBSWebsocket.SceneItemRemoved"/>
+    /// Called by <see cref="OBSWebSocket.SceneItemVisibilityChanged"/>, <see cref="OBSWebSocket.SceneItemAdded"/>
+    /// or <see cref="OBSWebSocket.SceneItemRemoved"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sceneName">Name of the scene where the item is</param>
     /// <param name="itemName">Name of the concerned item</param>
-    public delegate void SceneItemUpdateCallback(OBSWebsocket sender, string sceneName, string itemName);
+    public delegate void SceneItemUpdateCallback(OBSWebSocket sender, string sceneName, string itemName);
 
     /// <summary>
-    /// Called by <see cref="OBSWebsocket.TransitionChanged"/>
+    /// Called by <see cref="OBSWebSocket.TransitionChanged"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="newTransitionName">Name of the new selected transition</param>
-    public delegate void TransitionChangeCallback(OBSWebsocket sender, string newTransitionName);
+    public delegate void TransitionChangeCallback(OBSWebSocket sender, string newTransitionName);
 
     /// <summary>
-    /// Called by <see cref="OBSWebsocket.TransitionDurationChanged"/>
+    /// Called by <see cref="OBSWebSocket.TransitionDurationChanged"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="newDuration">Name of the new transition duration (in milliseconds)</param>
-    public delegate void TransitionDurationChangeCallback(OBSWebsocket sender, int newDuration);
+    public delegate void TransitionDurationChangeCallback(OBSWebSocket sender, int newDuration);
 
     /// <summary>
-    /// Called by <see cref="OBSWebsocket.StreamingStateChanged"/>, <see cref="OBSWebsocket.RecordingStateChanged"/>
-    /// or <see cref="OBSWebsocket.ReplayBufferStateChanged"/> 
+    /// Called by <see cref="OBSWebSocket.StreamingStateChanged"/>, <see cref="OBSWebSocket.RecordingStateChanged"/>
+    /// or <see cref="OBSWebSocket.ReplayBufferStateChanged"/> 
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="type">New output state</param>
-    public delegate void OutputStateCallback(OBSWebsocket sender, OutputState type);
+    public delegate void OutputStateCallback(OBSWebSocket sender, OutputState type);
 
     /// <summary>
-    /// Called by <see cref="OBSWebsocket.StreamStatus"/>
+    /// Called by <see cref="OBSWebSocket.StreamStatus"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="status">Stream status data</param>
-    public delegate void StreamStatusCallback(OBSWebsocket sender, StreamStatus status);
+    public delegate void StreamStatusCallback(OBSWebSocket sender, StreamStatus status);
 
     /// <summary>
-    /// Called by <see cref="OBSWebsocket.StudioModeSwitched"/>
+    /// Called by <see cref="OBSWebSocket.StudioModeSwitched"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="enabled">New Studio Mode status</param>
-    public delegate void StudioModeChangeCallback(OBSWebsocket sender, bool enabled);
+    public delegate void StudioModeChangeCallback(OBSWebSocket sender, bool enabled);
 
     /// <summary>
-    /// Called by <see cref="OBSWebsocket.Heartbeat"/>
+    /// Called by <see cref="OBSWebSocket.Heartbeat"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="heatbeat">heartbeat data</param>
-    public delegate void HeartBeatCallback(OBSWebsocket sender, Heartbeat heatbeat);
+    public delegate void HeartBeatCallback(OBSWebSocket sender, Heartbeat heatbeat);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SceneItemDeselected"/>
+    /// Callback by <see cref="OBSWebSocket.SceneItemDeselected"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sceneName">Name of the scene item was in</param>
     /// <param name="itemName">Name of the item deselected</param>
     /// <param name="itemId">Id of the item deselected</param>
-    public delegate void SceneItemDeselectedCallback(OBSWebsocket sender, string sceneName, string itemName, string itemId);
+    public delegate void SceneItemDeselectedCallback(OBSWebSocket sender, string sceneName, string itemName, string itemId);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SceneItemSelected"/>
+    /// Callback by <see cref="OBSWebSocket.SceneItemSelected"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sceneName">Name of the scene item was in</param>
     /// <param name="itemName">Name of the item seletected</param>
     /// <param name="itemId">Id of the item selected</param>
-    public delegate void SceneItemSelectedCallback(OBSWebsocket sender, string sceneName, string itemName, string itemId);
+    public delegate void SceneItemSelectedCallback(OBSWebSocket sender, string sceneName, string itemName, string itemId);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SceneItemTransformChanged"/>
+    /// Callback by <see cref="OBSWebSocket.SceneItemTransformChanged"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="transform">Transform data</param>
-    public delegate void SceneItemTransformCallback(OBSWebsocket sender, SceneItemTransformInfo transform);
+    public delegate void SceneItemTransformCallback(OBSWebSocket sender, SceneItemTransformInfo transform);
 
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceAudioMixersChanged"/>
+    /// Callback by <see cref="OBSWebSocket.SourceAudioMixersChanged"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="mixerInfo">Mixer information that was updated</param>
-    public delegate void SourceAudioMixersChangedCallback(OBSWebsocket sender, AudioMixersChangedInfo mixerInfo);
+    public delegate void SourceAudioMixersChangedCallback(OBSWebSocket sender, AudioMixersChangedInfo mixerInfo);
 
 
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceAudioSyncOffsetChanged"/>
+    /// Callback by <see cref="OBSWebSocket.SourceAudioSyncOffsetChanged"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sourceName">Name of the source for the offset change</param>
     /// <param name="syncOffset">Sync offset value</param>
-    public delegate void SourceAudioSyncOffsetCallback(OBSWebsocket sender, string sourceName, int syncOffset);
+    public delegate void SourceAudioSyncOffsetCallback(OBSWebSocket sender, string sourceName, int syncOffset);
 
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceCreated"/>
+    /// Callback by <see cref="OBSWebSocket.SourceCreated"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="settings">Newly created source settings</param>
-    public delegate void SourceCreatedCallback(OBSWebsocket sender, SourceSettings settings);
+    public delegate void SourceCreatedCallback(OBSWebSocket sender, SourceSettings settings);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceDestroyed"/>
+    /// Callback by <see cref="OBSWebSocket.SourceDestroyed"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sourceName">Newly destroyed source information</param>
     /// <param name="sourceKind">Kind of source destroyed</param>
     /// <param name="sourceType">Type of source destroyed</param>
-    public delegate void SourceDestroyedCallback(OBSWebsocket sender, string sourceName, string sourceType, string sourceKind);
+    public delegate void SourceDestroyedCallback(OBSWebSocket sender, string sourceName, string sourceType, string sourceKind);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceRenamed"/>
+    /// Callback by <see cref="OBSWebSocket.SourceRenamed"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="newName">New name of source</param>
     /// <param name="previousName">Previous name of source</param>
-    public delegate void SourceRenamedCallback(OBSWebsocket sender, string newName, string previousName);
+    public delegate void SourceRenamedCallback(OBSWebSocket sender, string newName, string previousName);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceMuteStateChanged"/>
+    /// Callback by <see cref="OBSWebSocket.SourceMuteStateChanged"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sourceName">Name of source</param>
     /// <param name="muted">Current mute state of source</param>
-    public delegate void SourceMuteStateChangedCallback(OBSWebsocket sender, string sourceName, bool muted);
+    public delegate void SourceMuteStateChangedCallback(OBSWebSocket sender, string sourceName, bool muted);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceVolumeChanged"/>
+    /// Callback by <see cref="OBSWebSocket.SourceVolumeChanged"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sourceName">Name of source</param>
     /// <param name="volume">Current volume level of source</param>
-    public delegate void SourceVolumeChangedCallback(OBSWebsocket sender, string sourceName, float volume);
+    public delegate void SourceVolumeChangedCallback(OBSWebSocket sender, string sourceName, float volume);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceFilterRemoved"/>
+    /// Callback by <see cref="OBSWebSocket.SourceFilterRemoved"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sourceName">Name of source</param>
     /// <param name="filterName">Name of removed filter</param>
-    public delegate void SourceFilterRemovedCallback(OBSWebsocket sender, string sourceName, string filterName);
+    public delegate void SourceFilterRemovedCallback(OBSWebSocket sender, string sourceName, string filterName);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceFilterAdded"/>
+    /// Callback by <see cref="OBSWebSocket.SourceFilterAdded"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sourceName">Name of source</param>
     /// <param name="filterName">Name of filter</param>
     /// <param name="filterType">Type of filter</param>
     /// <param name="filterSettings">Settings for filter</param>
-    public delegate void SourceFilterAddedCallback(OBSWebsocket sender, string sourceName, string filterName, string filterType, JObject filterSettings);
+    public delegate void SourceFilterAddedCallback(OBSWebSocket sender, string sourceName, string filterName, string filterType, JObject filterSettings);
 
     /// <summary>
-    /// Callback by <see cref="OBSWebsocket.SourceFiltersReordered"/>
+    /// Callback by <see cref="OBSWebSocket.SourceFiltersReordered"/>
     /// </summary>
-    /// <param name="sender"><see cref="OBSWebsocket"/> instance</param>
+    /// <param name="sender"><see cref="OBSWebSocket"/> instance</param>
     /// <param name="sourceName">Name of source</param>
     /// <param name="filters">Current order of filters for source</param>
-    public delegate void SourceFiltersReorderedCallback(OBSWebsocket sender, string sourceName, List<FilterReorderItem> filters);
+    public delegate void SourceFiltersReorderedCallback(OBSWebSocket sender, string sourceName, List<FilterReorderItem> filters);
 
     /// <summary>
     /// Thrown if authentication fails

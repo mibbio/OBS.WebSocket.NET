@@ -7,7 +7,7 @@ using System.Text;
 namespace OBSWebsocketDotNet.Types
 {
     /// <summary>
-    /// Response from <see cref="OBSWebsocket.GetTransitionList"/>
+    /// Response from <see cref="OBSWebSocket.GetTransitionList"/>
     /// </summary>
     public class GetTransitionListInfo
     {

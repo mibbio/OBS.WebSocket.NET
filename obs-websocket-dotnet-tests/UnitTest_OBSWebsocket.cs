@@ -1,10 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WebSocketSharp;
 
 namespace OBSWebsocketDotNet.Tests
 {
     [TestClass]
-    public class UnitTest_OBSWebsocket : OBSWebsocket
+    public class UnitTest_OBSWebsocket : OBSWebSocket
     {
         [TestMethod]
         public void NewMessageID_Test()
@@ -12,7 +11,7 @@ namespace OBSWebsocketDotNet.Tests
             int idLength = 22;
             string msgID = NewMessageID(idLength);
 
-            Assert.IsFalse(msgID.IsNullOrEmpty());
+            Assert.IsFalse(string.IsNullOrEmpty(msgID));
             Assert.AreEqual(idLength, msgID.Length);
         }
 
