@@ -7,7 +7,7 @@
 		<authors>Alexander Schmid</authors>
 		<owners>DurtyFree</owners>
 
-		<projectUrl>https://github.com/DurtyFree/obs-websocket-dotnet</projectUrl>
+		<projectUrl>https://github.com/DurtyFree/OBS.WebSocket.NET</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 
 		<description>Object oriented C# .NET library to communicate with an OBS-WebSocket Server</description>
