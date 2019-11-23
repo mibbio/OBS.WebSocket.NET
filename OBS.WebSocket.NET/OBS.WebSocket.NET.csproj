@@ -56,10 +56,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OBSWebSocketRequests.cs" />
+    <Compile Include="ObsWebSocketApi.cs" />
     <Compile Include="OutputStatus.cs" />
-    <Compile Include="Types.cs" />
-    <Compile Include="OBSWebSocket.cs" />
+    <Compile Include="Events.cs" />
+    <Compile Include="ObsWebSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\AudioMixerChannel.cs" />
     <Compile Include="Types\AudioMixersChangedInfo.cs" />

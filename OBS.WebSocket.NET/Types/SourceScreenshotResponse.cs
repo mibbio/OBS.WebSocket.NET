@@ -3,7 +3,7 @@
 namespace OBS.WebSocket.NET.Types
 {
     /// <summary>
-    /// Respone from <see cref="OBSWebSocket.TakeSourceScreenshot(string)"/>
+    /// Respone from <see cref="ObsWebSocket.TakeSourceScreenshot(string)"/>
     /// </summary>
     public class SourceScreenshotResponse
     {

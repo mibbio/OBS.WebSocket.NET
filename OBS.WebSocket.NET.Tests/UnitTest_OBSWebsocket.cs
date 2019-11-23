@@ -3,7 +3,7 @@
 namespace OBS.WebSocket.NET.Tests
 {
     [TestClass]
-    public class UnitTest_OBSWebsocket : OBSWebSocket
+    public class UnitTest_OBSWebsocket : ObsWebSocket
     {
         [TestMethod]
         public void NewMessageID_Test()

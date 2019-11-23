@@ -25,12 +25,12 @@ namespace TestClient
 {
     public partial class MainWindow : Form
     {
-        protected OBSWebSocket _obs;
+        protected ObsWebSocket _obs;
 
         public MainWindow()
         {
             InitializeComponent();
-            _obs = new OBSWebSocket();
+            _obs = new ObsWebSocket();
 
             _obs.Connected += onConnect;
             _obs.Disconnected += onDisconnect;
@@ -74,7 +74,7 @@ namespace TestClient
 
                 btnGetTransitionDuration.PerformClick();
 
-                var streamStatus = _obs.GetStreamingStatus();
+                var streamStatus = _obs.Api.GetStreamingStatus();
                 if (streamStatus.IsStreaming)
                     onStreamingStateChange(_obs, OutputState.Started);
                 else
@@ -98,7 +98,7 @@ namespace TestClient
             }));
         }
 
-        private void onSceneChange(OBSWebSocket sender, string newSceneName)
+        private void onSceneChange(ObsWebSocket sender, string newSceneName)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -110,7 +110,7 @@ namespace TestClient
         {
             BeginInvoke((MethodInvoker)delegate
             {
-                tbSceneCol.Text = _obs.GetCurrentSceneCollection();
+                tbSceneCol.Text = _obs.Api.GetCurrentSceneCollection();
             });
         }
 
@@ -118,11 +118,11 @@ namespace TestClient
         {
             BeginInvoke((MethodInvoker)delegate
             {
-                tbProfile.Text = _obs.GetCurrentProfile();
+                tbProfile.Text = _obs.Api.GetCurrentProfile();
             });
         }
 
-        private void onTransitionChange(OBSWebSocket sender, string newTransitionName)
+        private void onTransitionChange(ObsWebSocket sender, string newTransitionName)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -130,7 +130,7 @@ namespace TestClient
             });
         }
 
-        private void onTransitionDurationChange(OBSWebSocket sender, int newDuration)
+        private void onTransitionDurationChange(ObsWebSocket sender, int newDuration)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -138,7 +138,7 @@ namespace TestClient
             });
         }
 
-        private void onStreamingStateChange(OBSWebSocket sender, OutputState newState)
+        private void onStreamingStateChange(ObsWebSocket sender, OutputState newState)
         {
             string state = "";
             switch(newState)
@@ -178,7 +178,7 @@ namespace TestClient
             });
         }
 
-        private void onRecordingStateChange(OBSWebSocket sender, OutputState newState)
+        private void onRecordingStateChange(ObsWebSocket sender, OutputState newState)
         {
             string state = "";
             switch (newState)
@@ -210,7 +210,7 @@ namespace TestClient
             });
         }
 
-        private void onStreamData(OBSWebSocket sender, StreamStatus data)
+        private void onStreamData(ObsWebSocket sender, StreamStatus data)
         {
             BeginInvoke((MethodInvoker)delegate
             {
@@ -250,7 +250,7 @@ namespace TestClient
 
         private void btnListScenes_Click(object sender, EventArgs e)
         {
-            var scenes = _obs.ListScenes();
+            var scenes = _obs.Api.ListScenes();
 
             tvScenes.Nodes.Clear();
             foreach(var scene in scenes)
@@ -267,12 +267,12 @@ namespace TestClient
 
         private void btnGetCurrentScene_Click(object sender, EventArgs e)
         {
-            tbCurrentScene.Text = _obs.GetCurrentScene().Name;
+            tbCurrentScene.Text = _obs.Api.GetCurrentScene().Name;
         }
 
         private void btnSetCurrentScene_Click(object sender, EventArgs e)
         {
-            _obs.SetCurrentScene(tbCurrentScene.Text);
+            _obs.Api.SetCurrentScene(tbCurrentScene.Text);
         }
 
         private void tvScenes_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -285,7 +285,7 @@ namespace TestClient
 
         private void btnListSceneCol_Click(object sender, EventArgs e)
         {
-            var sc = _obs.ListSceneCollections();
+            var sc = _obs.Api.ListSceneCollections();
 
             tvSceneCols.Nodes.Clear();
             foreach (var sceneCol in sc)
@@ -296,12 +296,12 @@ namespace TestClient
 
         private void btnGetCurrentSceneCol_Click(object sender, EventArgs e)
         {
-            tbSceneCol.Text = _obs.GetCurrentSceneCollection();
+            tbSceneCol.Text = _obs.Api.GetCurrentSceneCollection();
         }
 
         private void btnSetCurrentSceneCol_Click(object sender, EventArgs e)
         {
-            _obs.SetCurrentSceneCollection(tbSceneCol.Text);
+            _obs.Api.SetCurrentSceneCollection(tbSceneCol.Text);
         }
 
         private void tvSceneCols_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -314,7 +314,7 @@ namespace TestClient
 
         private void btnListProfiles_Click(object sender, EventArgs e)
         {
-            var profiles = _obs.ListProfiles();
+            var profiles = _obs.Api.ListProfiles();
 
             tvProfiles.Nodes.Clear();
             foreach (var profile in profiles)
@@ -325,12 +325,12 @@ namespace TestClient
 
         private void btnGetCurrentProfile_Click(object sender, EventArgs e)
         {
-            tbProfile.Text = _obs.GetCurrentProfile();
+            tbProfile.Text = _obs.Api.GetCurrentProfile();
         }
 
         private void btnSetCurrentProfile_Click(object sender, EventArgs e)
         {
-            _obs.SetCurrentProfile(tbProfile.Text);
+            _obs.Api.SetCurrentProfile(tbProfile.Text);
         }
 
         private void tvProfiles_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -343,17 +343,17 @@ namespace TestClient
 
         private void btnToggleStreaming_Click(object sender, EventArgs e)
         {
-            _obs.ToggleStreaming();
+            _obs.Api.ToggleStreaming();
         }
 
         private void btnToggleRecording_Click(object sender, EventArgs e)
         {
-            _obs.ToggleRecording();
+            _obs.Api.ToggleRecording();
         }
 
         private void btnListTransitions_Click(object sender, EventArgs e)
         {
-            var transitions = _obs.ListTransitions();
+            var transitions = _obs.Api.ListTransitions();
 
             tvTransitions.Nodes.Clear();
             foreach (var transition in transitions)
@@ -364,12 +364,12 @@ namespace TestClient
 
         private void btnGetCurrentTransition_Click(object sender, EventArgs e)
         {
-            tbTransition.Text = _obs.GetCurrentTransition().Name;
+            tbTransition.Text = _obs.Api.GetCurrentTransition().Name;
         }
 
         private void btnSetCurrentTransition_Click(object sender, EventArgs e)
         {
-            _obs.SetCurrentTransition(tbTransition.Text);
+            _obs.Api.SetCurrentTransition(tbTransition.Text);
         }
 
         private void tvTransitions_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -382,12 +382,12 @@ namespace TestClient
 
         private void btnGetTransitionDuration_Click(object sender, EventArgs e)
         {
-            tbTransitionDuration.Value = _obs.GetCurrentTransition().Duration;
+            tbTransitionDuration.Value = _obs.Api.GetCurrentTransition().Duration;
         }
 
         private void btnSetTransitionDuration_Click(object sender, EventArgs e)
         {
-            _obs.SetTransitionDuration((int)tbTransitionDuration.Value);
+            _obs.Api.SetTransitionDuration((int)tbTransitionDuration.Value);
         }
     }
 }

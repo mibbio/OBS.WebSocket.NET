@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace OBS.WebSocket.NET.Types
 {
     /// <summary>
-    /// Response from <see cref="OBSWebSocket.GetTransitionList"/>
+    /// Response from <see cref="ObsWebSocket.GetTransitionList"/>
     /// </summary>
     public class GetTransitionListInfo
     {

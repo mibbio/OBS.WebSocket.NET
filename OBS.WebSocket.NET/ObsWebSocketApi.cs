@@ -1,28 +1,4 @@
-﻿/*
-    The MIT License (MIT)
-
-    Copyright (c) 2017 Stéphane Lepin
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -33,14 +9,21 @@ namespace OBS.WebSocket.NET
     /// <summary>
     /// Instance of a connection with an obs-websocket server
     /// </summary>
-    public partial class OBSWebSocket
+    public class ObsWebSocketApi
     {
+        private readonly ObsWebSocket _webSocket;
+
+        public ObsWebSocketApi(ObsWebSocket webSocket)
+        {
+            _webSocket = webSocket;
+        }
+
         /// <summary>
         /// Get basic OBS video information
         /// </summary>
         public OBSVideoInfo GetVideoInfo()
         {
-            JObject response = SendRequest("GetVideoInfo");
+            JObject response = _webSocket.SendRequest("GetVideoInfo");
             return JsonConvert.DeserializeObject<OBSVideoInfo>(response.ToString());
         }
 
@@ -66,7 +49,7 @@ namespace OBS.WebSocket.NET
             if (height > -1)
                 requestFields.Add("height", height);
 
-            var response = SendRequest("TakeSourceScreenshot", requestFields);
+            var response = _webSocket.SendRequest("TakeSourceScreenshot", requestFields);
             return JsonConvert.DeserializeObject<SourceScreenshotResponse>(response.ToString());
         }
 
@@ -98,7 +81,7 @@ namespace OBS.WebSocket.NET
         /// <returns>An <see cref="OBSScene"/> object describing the current scene</returns>
         public OBSScene GetCurrentScene()
         {
-            JObject response = SendRequest("GetCurrentScene");
+            JObject response = _webSocket.SendRequest("GetCurrentScene");
             return new OBSScene(response);
         }
 
@@ -111,7 +94,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("scene-name", sceneName);
 
-            SendRequest("SetCurrentScene", requestFields);
+            _webSocket.SendRequest("SetCurrentScene", requestFields);
         }
 
         /// <summary>
@@ -120,7 +103,7 @@ namespace OBS.WebSocket.NET
         /// <returns>Current filename formatting string</returns>
         public string GetFilenameFormatting()
         {
-            JObject response = SendRequest("GetFilenameFormatting");
+            JObject response = _webSocket.SendRequest("GetFilenameFormatting");
             return (string)response["filename-formatting"];
         }
 
@@ -129,7 +112,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public OBSStats GetStats()
         {
-            JObject response = SendRequest("GetStats");
+            JObject response = _webSocket.SendRequest("GetStats");
             return JsonConvert.DeserializeObject<OBSStats>(response["stats"].ToString());
         }
 
@@ -148,7 +131,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public GetSceneListInfo GetSceneList()
         {
-            JObject response = SendRequest("GetSceneList");
+            JObject response = _webSocket.SendRequest("GetSceneList");
             return JsonConvert.DeserializeObject<GetSceneListInfo>(response.ToString());
         }
 
@@ -166,7 +149,7 @@ namespace OBS.WebSocket.NET
             var items = JObject.Parse(JsonConvert.SerializeObject(sceneItems));
             requestFields.Add("items", items);
 
-            SendRequest("ReorderSceneItems", requestFields);
+            _webSocket.SendRequest("ReorderSceneItems", requestFields);
         }
 
         /// <summary>
@@ -174,7 +157,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public List<SourceInfo> GetSourcesList()
         {
-            JObject response = SendRequest("GetSourcesList");
+            JObject response = _webSocket.SendRequest("GetSourcesList");
             return JsonConvert.DeserializeObject<List<SourceInfo>>(response["sources"].ToString());
         }
 
@@ -183,7 +166,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public List<SourceType> GetSourceTypesList()
         {
-            JObject response = SendRequest("GetSourceTypesList");
+            JObject response = _webSocket.SendRequest("GetSourceTypesList");
             return JsonConvert.DeserializeObject<List<SourceType>>(response["types"].ToString());
         }
 
@@ -202,7 +185,7 @@ namespace OBS.WebSocket.NET
             if (sceneName != null)
                 requestFields.Add("scene-name", sceneName);
 
-            SendRequest("SetSceneItemProperties", requestFields);
+            _webSocket.SendRequest("SetSceneItemProperties", requestFields);
         }
 
         /// <summary>
@@ -218,7 +201,7 @@ namespace OBS.WebSocket.NET
             if (sceneName != null)
                 requestFields.Add("scene-name", sceneName);
 
-            JObject response = SendRequest("GetSceneItemProperties", requestFields);
+            JObject response = _webSocket.SendRequest("GetSceneItemProperties", requestFields);
             return JsonConvert.DeserializeObject<SceneItemProperties>(response.ToString());
         }
 
@@ -231,7 +214,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("source", sourceName);
 
-            JObject response = SendRequest("GetTextGDIPlusProperties", requestFields);
+            JObject response = _webSocket.SendRequest("GetTextGDIPlusProperties", requestFields);
             return JsonConvert.DeserializeObject<TextGDIPlusProperties>(response.ToString());
         }
 
@@ -243,7 +226,7 @@ namespace OBS.WebSocket.NET
         {
             var requestFields = JObject.Parse(JsonConvert.SerializeObject(properties));
 
-            SendRequest("SetTextGDIPlusProperties", requestFields);
+            _webSocket.SendRequest("SetTextGDIPlusProperties", requestFields);
             
         }
 
@@ -262,7 +245,7 @@ namespace OBS.WebSocket.NET
             requestFields.Add("filterName", filterName);
             requestFields.Add("movementType", movement.ToString().ToLower());
 
-            SendRequest("MoveSourceFilter", requestFields);
+            _webSocket.SendRequest("MoveSourceFilter", requestFields);
         }
 
         /// <summary>
@@ -278,7 +261,7 @@ namespace OBS.WebSocket.NET
             requestFields.Add("filterName", filterName);
             requestFields.Add("newIndex", newIndex);
 
-            SendRequest("ReorderSourceFilter", requestFields);
+            _webSocket.SendRequest("ReorderSourceFilter", requestFields);
         }
 
         /// <summary>
@@ -294,7 +277,7 @@ namespace OBS.WebSocket.NET
             requestFields.Add("filterName", filterName);
             requestFields.Add("filterSettings", filterSettings);
 
-            SendRequest("SetSourceFilterSettings", requestFields);
+            _webSocket.SendRequest("SetSourceFilterSettings", requestFields);
         }
 
         /// <summary>
@@ -306,7 +289,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("sourceName", sourceName);
 
-            JObject response = SendRequest("GetSourceFilters", requestFields);
+            JObject response = _webSocket.SendRequest("GetSourceFilters", requestFields);
 
             return JsonConvert.DeserializeObject<List<FilterSettings>>(response["filters"].ToString());
         }
@@ -323,7 +306,7 @@ namespace OBS.WebSocket.NET
             requestFields.Add("filterName", filterName);
             try
             {
-                SendRequest("RemoveFilterFromSource", requestFields);
+                _webSocket.SendRequest("RemoveFilterFromSource", requestFields);
                 return true;
             }
             catch (Exception e)
@@ -349,7 +332,7 @@ namespace OBS.WebSocket.NET
             requestFields.Add("filterName", filterName);
             requestFields.Add("filterSettings", filterSettings);
 
-            var result = SendRequest("AddFilterToSource", requestFields);
+            var result = _webSocket.SendRequest("AddFilterToSource", requestFields);
         }
 
         /// <summary>
@@ -357,7 +340,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void ToggleStreaming()
         {
-            SendRequest("StartStopStreaming");
+            _webSocket.SendRequest("StartStopStreaming");
         }
 
         /// <summary>
@@ -365,7 +348,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void ToggleRecording()
         {
-            SendRequest("StartStopRecording");
+            _webSocket.SendRequest("StartStopRecording");
         }
 
         /// <summary>
@@ -374,7 +357,7 @@ namespace OBS.WebSocket.NET
         /// <returns>An <see cref="OutputStatus"/> object describing the current outputs states</returns>
         public OutputStatus GetStreamingStatus()
         {
-            JObject response = SendRequest("GetStreamingStatus");
+            JObject response = _webSocket.SendRequest("GetStreamingStatus");
             var outputStatus = new OutputStatus(response);
             return outputStatus;
         }
@@ -401,7 +384,7 @@ namespace OBS.WebSocket.NET
         /// <returns>An <see cref="TransitionSettings"/> object with the current transition name and duration</returns>
         public TransitionSettings GetCurrentTransition()
         {
-            JObject respBody = SendRequest("GetCurrentTransition");
+            JObject respBody = _webSocket.SendRequest("GetCurrentTransition");
             return new TransitionSettings(respBody);
         }
 
@@ -414,7 +397,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("transition-name", transitionName);
 
-            SendRequest("SetCurrentTransition", requestFields);
+            _webSocket.SendRequest("SetCurrentTransition", requestFields);
         }
 
         /// <summary>
@@ -426,7 +409,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("duration", duration);
 
-            SendRequest("SetTransitionDuration", requestFields);
+            _webSocket.SendRequest("SetTransitionDuration", requestFields);
         }
 
         /// <summary>
@@ -440,7 +423,7 @@ namespace OBS.WebSocket.NET
             requestFields.Add("source", sourceName);
             requestFields.Add("volume", volume);
 
-            SendRequest("SetVolume", requestFields);
+            _webSocket.SendRequest("SetVolume", requestFields);
         }
 
         /// <summary>
@@ -453,7 +436,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("source", sourceName);
 
-            var response = SendRequest("GetVolume", requestFields);
+            var response = _webSocket.SendRequest("GetVolume", requestFields);
             return new VolumeInfo(response);
         }
 
@@ -468,7 +451,7 @@ namespace OBS.WebSocket.NET
             requestFields.Add("source", sourceName);
             requestFields.Add("mute", mute);
 
-            SendRequest("SetMute", requestFields);
+            _webSocket.SendRequest("SetMute", requestFields);
         }
 
         /// <summary>
@@ -480,7 +463,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("source", sourceName);
 
-            SendRequest("ToggleMute", requestFields);
+            _webSocket.SendRequest("ToggleMute", requestFields);
         }
 
         /// <summary>
@@ -500,7 +483,7 @@ namespace OBS.WebSocket.NET
             if (sceneName != null)
                 requestFields.Add("scene-name", sceneName);
 
-            SendRequest("SetSceneItemPosition", requestFields);
+            _webSocket.SendRequest("SetSceneItemPosition", requestFields);
         }
 
         /// <summary>
@@ -522,7 +505,7 @@ namespace OBS.WebSocket.NET
             if (sceneName != null)
                 requestFields.Add("scene-name", sceneName);
 
-            SendRequest("SetSceneItemTransform", requestFields);
+            _webSocket.SendRequest("SetSceneItemTransform", requestFields);
         }
 
         /// <summary>
@@ -539,7 +522,7 @@ namespace OBS.WebSocket.NET
             if (sceneName != null)
                 requestFields.Add("scene-name", sceneName);
 
-            SendRequest("SetSceneItemProperties", requestFields);
+            _webSocket.SendRequest("SetSceneItemProperties", requestFields);
         }
 
         /// <summary>
@@ -551,7 +534,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("sc-name", scName);
 
-            SendRequest("SetCurrentSceneCollection", requestFields);
+            _webSocket.SendRequest("SetCurrentSceneCollection", requestFields);
         }
 
         /// <summary>
@@ -560,7 +543,7 @@ namespace OBS.WebSocket.NET
         /// <returns>Name of the current scene collection</returns>
         public string GetCurrentSceneCollection()
         {
-            var response = SendRequest("GetCurrentSceneCollection");
+            var response = _webSocket.SendRequest("GetCurrentSceneCollection");
             return (string)response["sc-name"];
         }
 
@@ -570,7 +553,7 @@ namespace OBS.WebSocket.NET
         /// <returns>A <see cref="List{T}"/> of the names of all scene collections</returns>
         public List<string> ListSceneCollections()
         {
-            var response = SendRequest("ListSceneCollections");
+            var response = _webSocket.SendRequest("ListSceneCollections");
             var items = (JArray)response["scene-collections"];
 
             List<string> sceneCollections = new List<string>();
@@ -591,7 +574,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("profile-name", profileName);
 
-            SendRequest("SetCurrentProfile", requestFields);
+            _webSocket.SendRequest("SetCurrentProfile", requestFields);
         }
 
         /// <summary>
@@ -600,7 +583,7 @@ namespace OBS.WebSocket.NET
         /// <returns>Name of the current profile</returns>
         public string GetCurrentProfile()
         {
-            var response = SendRequest("GetCurrentProfile");
+            var response = _webSocket.SendRequest("GetCurrentProfile");
             return (string)response["profile-name"];
         }
 
@@ -610,7 +593,7 @@ namespace OBS.WebSocket.NET
         /// <returns>A <see cref="List{T}"/> of the names of all profiles</returns>
         public List<string> ListProfiles()
         {
-            var response = SendRequest("ListProfiles");
+            var response = _webSocket.SendRequest("ListProfiles");
             var items = (JArray)response["profiles"];
 
             List<string> profiles = new List<string>();
@@ -628,7 +611,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void StartStreaming()
         {
-            SendRequest("StartStreaming");
+            _webSocket.SendRequest("StartStreaming");
         }
 
         /// <summary>
@@ -636,7 +619,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void StopStreaming()
         {
-            SendRequest("StopStreaming");
+            _webSocket.SendRequest("StopStreaming");
         }
 
         /// <summary>
@@ -644,7 +627,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void StartStopStreaming()
         {
-            SendRequest("StartStopStreaming");
+            _webSocket.SendRequest("StartStopStreaming");
         }
 
         /// <summary>
@@ -652,7 +635,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void StartRecording()
         {
-            SendRequest("StartRecording");
+            _webSocket.SendRequest("StartRecording");
         }
 
         /// <summary>
@@ -660,7 +643,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void StopRecording()
         {
-            SendRequest("StopRecording");
+            _webSocket.SendRequest("StopRecording");
         }
 
         /// <summary>
@@ -668,7 +651,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void StartStopRecording()
         {
-            SendRequest("StartStopRecording");
+            _webSocket.SendRequest("StartStopRecording");
         }
 
         /// <summary>
@@ -679,7 +662,7 @@ namespace OBS.WebSocket.NET
         {
             var requestFields = new JObject();
             requestFields.Add("rec-folder", recFolder);
-            SendRequest("SetRecordingFolder", requestFields);
+            _webSocket.SendRequest("SetRecordingFolder", requestFields);
         }
 
         /// <summary>
@@ -688,7 +671,7 @@ namespace OBS.WebSocket.NET
         /// <returns>Current recording folder path</returns>
         public string GetRecordingFolder()
         {
-            var response = SendRequest("GetRecordingFolder");
+            var response = _webSocket.SendRequest("GetRecordingFolder");
             return (string)response["rec-folder"];
         }
 
@@ -698,7 +681,7 @@ namespace OBS.WebSocket.NET
         /// <returns>Current transition duration (in milliseconds)</returns>
         public int GetTransitionDuration()
         {
-            var response = SendRequest("GetTransitionDuration");
+            var response = _webSocket.SendRequest("GetTransitionDuration");
             return (int)response["transition-duration"];
         }
 
@@ -708,7 +691,7 @@ namespace OBS.WebSocket.NET
         /// <returns>Current transition duration (in milliseconds)</returns>
         public GetTransitionListInfo GetTransitionList()
         {
-            var response = SendRequest("GetTransitionList");
+            var response = _webSocket.SendRequest("GetTransitionList");
 
             return JsonConvert.DeserializeObject<GetTransitionListInfo>(response.ToString());
         }
@@ -719,7 +702,7 @@ namespace OBS.WebSocket.NET
         /// <returns>Studio Mode status (on/off)</returns>
         public bool StudioModeEnabled()
         {
-            var response = SendRequest("GetStudioModeStatus");
+            var response = _webSocket.SendRequest("GetStudioModeStatus");
             return (bool)response["studio-mode"];
         }
 
@@ -728,7 +711,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void DisableStudioMode()
         {
-            SendRequest("DisableStudioMode");
+            _webSocket.SendRequest("DisableStudioMode");
         }
 
         /// <summary>
@@ -736,7 +719,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void EnableStudioMode()
         {
-            SendRequest("EnableStudioMode");
+            _webSocket.SendRequest("EnableStudioMode");
         }
 
         /// <summary>
@@ -744,7 +727,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public bool GetStudioModeStatus()
         {
-            var response = SendRequest("GetStudioModeStatus");
+            var response = _webSocket.SendRequest("GetStudioModeStatus");
             return (bool)response["studio-mode"];
         }
 
@@ -765,7 +748,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void ToggleStudioMode()
         {
-            SendRequest("ToggleStudioMode");
+            _webSocket.SendRequest("ToggleStudioMode");
         }
 
         /// <summary>
@@ -775,7 +758,7 @@ namespace OBS.WebSocket.NET
         /// <returns>Preview scene object</returns>
         public OBSScene GetPreviewScene()
         {
-            var response = SendRequest("GetPreviewScene");
+            var response = _webSocket.SendRequest("GetPreviewScene");
             return new OBSScene(response);
         }
 
@@ -788,7 +771,7 @@ namespace OBS.WebSocket.NET
         {
             var requestFields = new JObject();
             requestFields.Add("scene-name", previewScene);
-            SendRequest("SetPreviewScene", requestFields);
+            _webSocket.SendRequest("SetPreviewScene", requestFields);
         }
 
         /// <summary>
@@ -823,7 +806,7 @@ namespace OBS.WebSocket.NET
                 requestFields.Add("with-transition", withTransition);
             }
 
-            SendRequest("TransitionToProgram", requestFields);
+            _webSocket.SendRequest("TransitionToProgram", requestFields);
         }
 
         /// <summary>
@@ -836,7 +819,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("source", sourceName);
 
-            var response = SendRequest("GetMute");
+            var response = _webSocket.SendRequest("GetMute");
             return (bool)response["muted"];
         }
 
@@ -845,7 +828,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void ToggleReplayBuffer()
         {
-            SendRequest("StartStopReplayBuffer");
+            _webSocket.SendRequest("StartStopReplayBuffer");
         }
 
         /// <summary>
@@ -855,7 +838,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void StartReplayBuffer()
         {
-            SendRequest("StartReplayBuffer");
+            _webSocket.SendRequest("StartReplayBuffer");
         }
 
         /// <summary>
@@ -864,7 +847,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void StopReplayBuffer()
         {
-            SendRequest("StopReplayBuffer");
+            _webSocket.SendRequest("StopReplayBuffer");
         }
 
         /// <summary>
@@ -872,7 +855,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void StartStopReplayBuffer()
         {
-            SendRequest("StartStopReplayBuffer");
+            _webSocket.SendRequest("StartStopReplayBuffer");
         }
 
         /// <summary>
@@ -882,7 +865,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void SaveReplayBuffer()
         {
-            SendRequest("SaveReplayBuffer");
+            _webSocket.SendRequest("SaveReplayBuffer");
         }
 
         /// <summary>
@@ -895,7 +878,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("source", sourceName);
             requestFields.Add("offset", syncOffset);
-            SendRequest("SetSyncOffset", requestFields);
+            _webSocket.SendRequest("SetSyncOffset", requestFields);
         }
 
         /// <summary>
@@ -907,7 +890,7 @@ namespace OBS.WebSocket.NET
         {
             var requestFields = new JObject();
             requestFields.Add("source", sourceName);
-            var response = SendRequest("GetSyncOffset", requestFields);
+            var response = _webSocket.SendRequest("GetSyncOffset", requestFields);
             return (int)response["offset"];
         }
 
@@ -931,7 +914,7 @@ namespace OBS.WebSocket.NET
 
             requestFields.Add("item", minReqs);
 
-            SendRequest("DeleteSceneItem", requestFields);
+            _webSocket.SendRequest("DeleteSceneItem", requestFields);
         }
 
         /// <summary>
@@ -952,7 +935,7 @@ namespace OBS.WebSocket.NET
 
             requestFields.Add("item", minReqs);
 
-            SendRequest("DeleteSceneItem", requestFields);
+            _webSocket.SendRequest("DeleteSceneItem", requestFields);
         }
 
         /// <summary>
@@ -975,7 +958,7 @@ namespace OBS.WebSocket.NET
             requestFields.Add("left", cropInfo.Left);
             requestFields.Add("right", cropInfo.Right);
 
-            SendRequest("SetSceneItemCrop", requestFields);
+            _webSocket.SendRequest("SetSceneItemCrop", requestFields);
         }
 
         /// <summary>
@@ -1003,7 +986,7 @@ namespace OBS.WebSocket.NET
             if (sceneName != null)
                 requestFields.Add("scene-name");
 
-            SendRequest("ResetSceneItem", requestFields);
+            _webSocket.SendRequest("ResetSceneItem", requestFields);
         }
 
         /// <summary>
@@ -1015,7 +998,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("text", text);
 
-            SendRequest("SendCaptions", requestFields);
+            _webSocket.SendRequest("SendCaptions", requestFields);
         }
 
         /// <summary>
@@ -1027,7 +1010,7 @@ namespace OBS.WebSocket.NET
             var requestFields = new JObject();
             requestFields.Add("filename-formatting", filenameFormatting);
 
-            SendRequest("SetFilenameFormatting", requestFields);
+            _webSocket.SendRequest("SetFilenameFormatting", requestFields);
         }
 
         /// <summary>
@@ -1051,7 +1034,7 @@ namespace OBS.WebSocket.NET
 
             requestFields.Add("item", minReqs);
 
-            SendRequest("DuplicateSceneItem", requestFields);
+            _webSocket.SendRequest("DuplicateSceneItem", requestFields);
         }
 
         /// <summary>
@@ -1072,7 +1055,7 @@ namespace OBS.WebSocket.NET
 
             requestFields.Add("item", minReqs);
 
-            SendRequest("DuplicateSceneItem", requestFields);
+            _webSocket.SendRequest("DuplicateSceneItem", requestFields);
         }
 
         /// <summary>
@@ -1082,7 +1065,7 @@ namespace OBS.WebSocket.NET
         /// <returns></returns>
         public Dictionary<string, string> GetSpecialSources()
         {
-            var response = SendRequest("GetSpecialSources");
+            var response = _webSocket.SendRequest("GetSpecialSources");
             var sources = new Dictionary<string, string>();
             foreach (KeyValuePair<string, JToken> x in response)
             {
@@ -1109,7 +1092,7 @@ namespace OBS.WebSocket.NET
             requestFields.Add("type", service.Type);
             requestFields.Add("settings", jsonSettings);
             requestFields.Add("save", save);
-            SendRequest("SetStreamSettings", requestFields);
+            _webSocket.SendRequest("SetStreamSettings", requestFields);
         }
 
         /// <summary>
@@ -1118,7 +1101,7 @@ namespace OBS.WebSocket.NET
         /// <returns></returns>
         public StreamingService GetStreamSettings()
         {
-            var response = SendRequest("GetStreamSettings");
+            var response = _webSocket.SendRequest("GetStreamSettings");
 
             return JsonConvert.DeserializeObject<StreamingService>(response.ToString());
         }
@@ -1138,7 +1121,7 @@ namespace OBS.WebSocket.NET
         /// </summary>
         public void SaveStreamSettings()
         {
-            SendRequest("SaveStreamSettings");
+            _webSocket.SendRequest("SaveStreamSettings");
         }
 
         /// <summary>
@@ -1154,7 +1137,7 @@ namespace OBS.WebSocket.NET
             if (sceneName != null)
                 request.Add("scene-name", sourceName);
 
-            var response = SendRequest("GetBrowserSourceProperties", request);
+            var response = _webSocket.SendRequest("GetBrowserSourceProperties", request);
             return new BrowserSourceProperties(response);
         }
 
@@ -1171,7 +1154,7 @@ namespace OBS.WebSocket.NET
             var request = new JObject();
             var jsonString = JsonConvert.SerializeObject(request);
             JsonConvert.PopulateObject(jsonString, request);
-            SendRequest("SetBrowserSourceProperties", request);
+            _webSocket.SendRequest("SetBrowserSourceProperties", request);
         }
 
         /// <summary>
@@ -1183,7 +1166,7 @@ namespace OBS.WebSocket.NET
             var request = new JObject();
             request.Add("enable", enable);
 
-            SendRequest("SetHeartbeat", request);
+            _webSocket.SendRequest("SetHeartbeat", request);
         }
 
         /// <summary>
@@ -1199,7 +1182,7 @@ namespace OBS.WebSocket.NET
             if (sourceType != null)
                 request.Add("sourceType", sourceType);
 
-            JObject result = SendRequest("GetSourceSettings", request);
+            JObject result = _webSocket.SendRequest("GetSourceSettings", request);
             SourceSettings settings = new SourceSettings(result);
 
             return settings;
@@ -1219,7 +1202,7 @@ namespace OBS.WebSocket.NET
             if (sourceType != null)
                 request.Add("sourceType", sourceType);
 
-            SendRequest("SetSourceSettings", request);
+            _webSocket.SendRequest("SetSourceSettings", request);
         }
     }
 }

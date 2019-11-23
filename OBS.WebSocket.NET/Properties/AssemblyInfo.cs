@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("obs-websocket-dotnet")]
+[assembly: AssemblyTitle("OBS.WebSocket.NET")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("obs-websocket-dotnet")]
-[assembly: AssemblyCopyright("Copyright © Stéphane Lepin 2017")]
+[assembly: AssemblyProduct("OBS.WebSocket.NET")]
+[assembly: AssemblyCopyright("Copyright © Alexander Schmid 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,6 +34,6 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("4.6.1.0")]
 [assembly: AssemblyFileVersion("4.6.1.0")]
-[assembly: InternalsVisibleTo("obs-websocket-dotnet.Tests")]
-[assembly: InternalsVisibleTo("obs-websocket-dotnet.Explorables")]
+[assembly: InternalsVisibleTo("OBS.WebSocket.NET.Tests")]
+[assembly: InternalsVisibleTo("OBS.WebSocket.NET.Explorables")]
 
