@@ -13,6 +13,9 @@
 		<description>Object oriented C# .NET library to communicate with an OBS-WebSocket Server</description>
 		<releaseNotes>Updated API to support OBS-WebSocket 4.7.0 protocol: https://github.com/Palakis/obs-websocket/releases/tag/4.7.0 </releaseNotes>
 
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageIconUrl>https://raw.githubusercontent.com/DurtyFree/OBS.WebSocket.NET/master/OBS.WebSocket.NET/icon.png?raw=true</PackageIconUrl>
+
 		<copyright>Copyright 2019 (c) Alexander Schmid</copyright>
 		<tags>obs studio websocket api streaming twitch library api server obs-websocket durtyfree</tags>
 
