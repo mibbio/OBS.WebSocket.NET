@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
 		<id>OBS.WebSocket.NET</id>
-		<version>4.7.0</version>
+		<version>4.7.1</version>
 
 		<authors>Alexander Schmid</authors>
 		<owners>DurtyFree</owners>
@@ -27,8 +27,8 @@
 	</metadata>
 
 	<files>
-		<file src="bin\Release\OBS.WebSocket.NET.dll" target="build" />
-    <file src="bin\Release\OBS.WebSocket.NET.xml" target="build" />
+    <file src="bin\Release\OBS.WebSocket.NET.dll" target="lib" />
+    <file src="bin\Release\OBS.WebSocket.NET.xml" target="lib" />
     <file src="icon.png" target="images\" />
 	</files>
 </package>
