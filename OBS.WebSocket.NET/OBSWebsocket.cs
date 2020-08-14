@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -270,13 +271,13 @@ namespace OBS.WebSocket.NET
             };
             Connection.Open();
 
-            DateTime startTime = DateTime.Now;
             do
             {
                 if (Connection.State == WebSocketState.Open)
                     break;
-
-            } while (startTime + Timeout < DateTime.Now);
+                
+                Thread.Sleep(10);
+            } while (Connection.State == WebSocketState.Connecting);
 
             if (Connection.State != WebSocketState.Open)
                 return;
